@@ -1,0 +1,10 @@
+2026-07-13 18:47:34,746 INFO: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.28.123.185:5000
+2026-07-13 18:47:34,746 INFO: [33mPress CTRL+C to quit[0m
+2026-07-13 18:47:34,747 INFO:  * Restarting with stat
+2026-07-13 18:47:34,857 WARNING:  * Debugger is active!
+2026-07-13 18:47:34,859 INFO:  * Debugger PIN: 292-381-679
+2026-07-13 18:48:23,421 INFO: Main request successfull
+2026-07-13 18:48:23,422 INFO: 127.0.0.1 - - [13/Jul/2026 18:48:23] "GET / HTTP/1.1" 200 -

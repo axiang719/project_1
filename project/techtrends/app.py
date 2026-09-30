@@ -1,11 +1,18 @@
 import sqlite3
-
+import sys
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 
+
+import logging
+
+
+db_connection_count = 0
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
 def get_db_connection():
+    global db_connection_count
+    db_connection_count += 1
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
     return connection
@@ -45,6 +52,30 @@ def post(post_id):
 def about():
     return render_template('about.html')
 
+@app.route('/healthz')
+def healthz():
+    response = app.response_class(
+        response=json.dumps({"result": "OK - healthy"}),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
+
+@app.route('/metrics')
+def metrics():
+    connection = get_db_connection()
+    post_count = connection.execute('SELECT COUNT(*) FROM posts').fetchone()[0]
+    connection.close()
+
+    response = app.response_class(
+        response=json.dumps({"status": "Success", "code": 0, "data": {"post_count": post_count, "db_connection_count": db_connection_count}}),
+        status=200,
+        mimetype='application/json'
+    )
+
+    return response
+
 # Define the post creation functionality 
 @app.route('/create', methods=('GET', 'POST'))
 def create():
@@ -67,4 +98,10 @@ def create():
 
 # start the application on port 3111
 if __name__ == "__main__":
+   std_out_handler = logging.StreamHandler(sys.stdout)
+   std_out_handler.setLevel(logging.DEBUG)
+   formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
+   std_out_handler.setFormatter(formatter)
+
+   logging.basicConfig(level=logging.DEBUG, handlers=[std_out_handler])
    app.run(host='0.0.0.0', port='3111')
