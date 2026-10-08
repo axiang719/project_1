@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: "https://github.com/axiang719/project_1.git"
-    path: nd064_course_1/project/helm
+    path: project/helm
     targetRevision: HEAD
     helm:
       valueFiles:
