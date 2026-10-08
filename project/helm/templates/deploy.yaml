@@ -4,7 +4,7 @@ metadata:
   name: techtrends-deployment
   namespace: {{.Values.namespace.name}}
 spec:
-  replicas: {{.Values.namespace.name}}
+  replicas: {{.Values.replicaCount}}
   selector:
     matchLabels:
       app: techtrends
@@ -15,21 +15,22 @@ spec:
     spec:
       containers:
         - name: techtrends
-          image: {{.Values.namespace.name}}:{{.Values.namespace.name}}
-          imagePullPolicy: {{.Values.namespace.name}}
+          image: {{.Values.image.repository}}:{{.Values.image.tag}}
+          imagePullPolicy: {{.Values.image.pullPolicy}}
           ports:
-            - containerPort: {{.Values.namespace.name}}
+            - containerPort: {{.Values.service.targetPort}}
           resources:
               requests:
-                memory: {{.Values.namespace.name}}
-                cpu: {{.Values.namespace.name}}
+                memory: {{.Values.resources.requests.memory}}
+                cpu: {{.Values.resources.requests.cpu}}
               limits:
-                memory: {{.Values.namespace.name}}
-                cpu: {{.Values.namespace.name}}
+                memory: {{.Values.resources.limits.memory}}
+                cpu: {{.Values.resources.limits.cpu}}
           livenessProbe:
-            path: {{.Values.namespace.name}}
-            port: {{.Values.namespace.name}}
+            httpGet:
+              path: /healthz
+              port: {{.Values.service.targetPort}}
           readinessProbe:
-           httpGet:
-           Path: {{.Values.namespace.name}}
-           Port: {{.Values.namespace.name}}
+            httpGet:
+              path: /healthz
+              port: {{.Values.service.targetPort}}
