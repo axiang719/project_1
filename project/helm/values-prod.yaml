@@ -1,9 +1,11 @@
 namespace:
   name: prod
+image:
+  repository: ax719/techtrends
+  tag: latest
+  pullPolicy: Always
 service:
   port: 5111
-image:
-  pullPolicy: Always
 replicaCount: 5
 resources:
   requests:
