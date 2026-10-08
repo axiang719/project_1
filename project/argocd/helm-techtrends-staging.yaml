@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: "https://github.com/axiang719/project_1.git"
     path: project/helm
-    targetRevision: HEAD
+    targetRevision: main
     helm:
       valueFiles:
         - values-staging.yaml
