@@ -1,7 +1,7 @@
 namespace:
   name: prod
 image:
-  repository: ax719/techtrends
+  repository: ax710/techtrends
   tag: latest
   pullPolicy: Always
 service:
