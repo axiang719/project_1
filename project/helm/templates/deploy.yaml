@@ -29,8 +29,8 @@ spec:
           livenessProbe:
             httpGet:
               path: /healthz
-              port: {{.Values.service.targetPort}}
+              port: 3111
           readinessProbe:
             httpGet:
               path: /healthz
-              port: {{.Values.service.targetPort}}
+              port: 3111

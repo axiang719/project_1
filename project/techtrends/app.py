@@ -44,13 +44,16 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
+      app.logger.error(f'Article with id {post_id} not found!')
       return render_template('404.html'), 404
     else:
+      app.logger.info(f'Article "{post["title"]}" retrieved!')
       return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
+    app.logger.info('About Us page retrieved!')
     return render_template('about.html')
 
 @app.route('/healthz')
@@ -60,7 +63,7 @@ def healthz():
         status=200,
         mimetype='application/json'
     )
-
+    app.logger.info('Status Request successful')
     return response
 
 @app.route('/metrics')
@@ -74,7 +77,7 @@ def metrics():
         status=200,
         mimetype='application/json'
     )
-
+    app.logger.info('Metrics request successful')
     return response
 
 # Define the post creation functionality 
@@ -92,7 +95,7 @@ def create():
                          (title, content))
             connection.commit()
             connection.close()
-
+            app.logger.info(f'Article "{title}" created!')
             return redirect(url_for('index'))
 
     return render_template('create.html')

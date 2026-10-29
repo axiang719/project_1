@@ -6,14 +6,14 @@ service:
   protocol: TCP
   type: ClusterIP
 image:
-  repository: ax719/techtrends
+  repository: ax710/techtrends
   tag: latest
   pullPolicy: IfNotPresent
 replicaCount: 1
-Resources:
+resources:
   requests:
     cpu: "250m"
-    memory: "640Mi"
+    memory: "64Mi"
   limits:
     cpu: "500m"
     memory: "128Mi"
