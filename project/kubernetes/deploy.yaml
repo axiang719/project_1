@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: techtrends-deployment
+  name: techtrends
   namespace: sandbox
 spec:
   replicas: 1
@@ -25,3 +25,9 @@ spec:
               limits:
                 memory: "128Mi"
                 cpu: "500m"
+      livenessProbe:
+        httpGet: /healthz
+        port: 3111
+      readinessProbe:
+        httpGet: /healthz
+        port: 3111

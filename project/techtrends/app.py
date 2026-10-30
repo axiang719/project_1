@@ -104,8 +104,15 @@ def create():
 if __name__ == "__main__":
    std_out_handler = logging.StreamHandler(sys.stdout)
    std_out_handler.setLevel(logging.DEBUG)
+
+   std_err_handler = logging.StreamHandler(sys.stderr)
+   std_err_handler.setLevel(logging.ERROR)
+   
    formatter = logging.Formatter('%(asctime)s %(levelname)s: %(message)s')
    std_out_handler.setFormatter(formatter)
+   std_err_handler.setFormatter(formatter)
 
-   logging.basicConfig(level=logging.DEBUG, handlers=[std_out_handler])
+
+
+   logging.basicConfig(level=logging.DEBUG, handlers=[std_out_handler, std_err_handler])
    app.run(host='0.0.0.0', port='3111')
